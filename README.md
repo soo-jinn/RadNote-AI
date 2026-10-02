@@ -1,6 +1,6 @@
-# RadNote-AI — Sprint 1 classifier baseline
+# RadNote-AI
 
-This folder contains Gilbert's Sprint 1 contribution: a reproducible TF-IDF + Logistic Regression baseline for assigning one of the proposal's urgency labels (`Routine`, `Urgent`, `Critical`) to the **text** in a chest-radiology report.
+This folder contains a reproducible TF-IDF + Logistic Regression baseline for assigning one of the proposal's urgency labels (`Routine`, `Urgent`, `Critical`) to the **text** in a chest-radiology report.
 
 The proposal's data source is the Indiana University Chest X-ray Collection (Open-I). The working corpus is not included here. Keep source-derived data in the group's restricted working directory and use only a course-approved sample in any public repository. This code expects CSV files prepared by the data/preprocessing owner; it does not infer or clinically validate urgency labels.
 
