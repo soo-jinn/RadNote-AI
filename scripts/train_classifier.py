@@ -57,7 +57,9 @@ def train(train_csv: Path) -> Pipeline:
         )
     model = Pipeline(
         steps=[
-            ("tfidf", TfidfVectorizer(ngram_range=(1, 2), min_df=1, strip_accents="unicode")),
+            # strip_accents is omitted because skl2onnx does not support the
+            # Unicode accent-stripping variant for ONNX text vectorization.
+            ("tfidf", TfidfVectorizer(ngram_range=(1, 2), min_df=1)),
             ("classifier", LogisticRegression(max_iter=1000, class_weight="balanced")),
         ]
     )

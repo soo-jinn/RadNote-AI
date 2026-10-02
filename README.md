@@ -37,6 +37,8 @@ uv run python scripts/label_openi_weak.py --input ..\..\..\private-data\openi\op
 
 The script is a provisional labeling proposal, not a substitute for the team's label audit. The current pass labels only 940 of 3,955 reports automatically (912 Routine, 27 Urgent, 1 Critical); the remaining 3,015 are `REVIEW`. This is too imbalanced to support a meaningful three-class evaluation. Do not train/report a three-class score until the group reviews the mapping and improves class coverage with audited labels.
 
+The first exploratory held-out run returned macro-F1 0.553 and accuracy 0.986 over 141 rows, including 137 Routine, 4 Urgent, and 0 Critical. Critical is not assessable; Urgent support is too small to treat its 0.50 recall as a stable estimate. The high accuracy is dominated by Routine. See the shared `Classifier_Baseline_Results.md` for the full confusion matrix and limitations; these are weak-label agreement metrics, not clinical performance.
+
 ## Export the fitted classifier to ONNX
 
 ONNX conversion is optional and must be checked in the target runtime. Install the export extra and run:
@@ -53,10 +55,10 @@ uv sync --extra onnx
 uv run --with onnxruntime python scripts/verify_onnx_cpu.py --model artifacts\urgency_classifier.joblib --onnx artifacts\urgency_classifier.onnx --csv PATH\TO\held_out.csv
 ```
 
-The parity script requires exact label agreement and the ONNX Runtime CPU provider. Conversion and target execution are still pending; do not claim them as verified until this command completes successfully on the VM. Ascend/Atlas is not currently an accessible deployment target, so confirm whether the course rubric requires it.
+The parity script requires exact label agreement and the ONNX Runtime CPU provider. Conversion and 141/141 held-out CPU parity succeeded locally on Windows after removing the unsupported `strip_accents="unicode"` option from the vectorizer. Repeat this check on the Ubuntu VM before claiming target deployment verification. Ascend/Atlas is not currently an accessible deployment target, so confirm whether the course rubric requires it.
 
 ## Sprint status
 
-- Implemented: configurable baseline training/evaluation and an ONNX export path.
-- Pending: train on the group's prepared data, review the weak-label policy and class counts, run conversion, inspect the ONNX inputs/outputs, and evaluate it in the deployment environment.
+- Implemented: configurable baseline training/evaluation, provisional weak-label/split script, ONNX export, and CPU parity checker.
+- Pending: group review of weak-label policy and class support; improve audited labels before treating metrics as an acceptance result; rerun ONNX/API verification on the Ubuntu VM.
 - No real dataset, credentials, model binaries, or patient information belongs in this repository.
