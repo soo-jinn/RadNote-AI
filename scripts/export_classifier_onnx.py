@@ -1,5 +1,3 @@
-"""Export a fitted scikit-learn urgency classifier to ONNX."""
-
 from __future__ import annotations
 
 import argparse
