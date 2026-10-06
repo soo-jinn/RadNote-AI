@@ -1,9 +1,3 @@
-"""Small CPU rule-based spaCy entity prototype for report-text experiments.
-
-This lexicon is a Sprint 1 scaffold, not a clinical NLP model. Review matches
-and extend the patterns with Sonnelo before describing it as evaluated NER.
-"""
-
 from __future__ import annotations
 
 import argparse
