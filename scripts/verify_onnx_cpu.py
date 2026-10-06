@@ -1,5 +1,3 @@
-"""Compare a scikit-learn text classifier with ONNX Runtime on Ubuntu CPU."""
-
 from __future__ import annotations
 
 import argparse
