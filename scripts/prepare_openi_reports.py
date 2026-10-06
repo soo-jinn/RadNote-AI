@@ -1,9 +1,3 @@
-"""Convert Open-I Indiana University report XML files to a private working CSV.
-
-The output contains source-derived report text. Keep it within the group's
-authorized research workspace; never commit the output to a public repository.
-"""
-
 from __future__ import annotations
 
 import argparse
