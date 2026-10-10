@@ -1,0 +1,95 @@
+{
+  "architecture": "Embedding32 + Conv1D64 + BIO token linear head",
+  "validation_status": "synthetic_weak_labels_only",
+  "epoch_limit": 80,
+  "best_validation_loss": 0.0171209629625082,
+  "partitions": {
+    "train": 1144,
+    "validation": 286,
+    "test": 286
+  },
+  "calibration": "40 training sentences; held-out sentences excluded",
+  "quantization": "static INT8 QDQ Conv/MatMul; embedding float32",
+  "test_token_metrics": {
+    "O": {
+      "precision": 0.9993935718617344,
+      "recall": 1.0,
+      "f1-score": 0.9996966939642099,
+      "support": 1648.0
+    },
+    "B-FINDING": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 164.0
+    },
+    "I-FINDING": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 51.0
+    },
+    "B-ANATOMY": {
+      "precision": 1.0,
+      "recall": 0.9920634920634921,
+      "f1-score": 0.9960159362549801,
+      "support": 126.0
+    },
+    "I-ANATOMY": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 60.0
+    },
+    "B-LATERALITY": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 41.0
+    },
+    "I-LATERALITY": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 0.0
+    },
+    "B-SEVERITY": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 79.0
+    },
+    "I-SEVERITY": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 0.0
+    },
+    "B-TEMPORAL": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 70.0
+    },
+    "I-TEMPORAL": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 0.0
+    },
+    "accuracy": 0.9995533720410897,
+    "macro avg": {
+      "precision": 0.7272175974419759,
+      "recall": 0.7265512265512265,
+      "f1-score": 0.7268829663835628,
+      "support": 2239.0
+    },
+    "weighted avg": {
+      "precision": 0.9995536428888514,
+      "recall": 0.9995533720410897,
+      "f1-score": 0.9995525500764384,
+      "support": 2239.0
+    }
+  },
+  "limitations": "Template-family holdout of lexicon-generated annotations. Not clinical/entity-span validation; unknown tokens forced O at runtime."
+}
