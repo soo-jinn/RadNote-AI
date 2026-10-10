@@ -1,0 +1,271 @@
+{
+  "platform": "Windows-11-10.0.26200-SP0",
+  "classifier": {
+    "held_out_rows": 141,
+    "parity_matches": 141,
+    "parity_fraction": 1.0,
+    "max_probability_drift": 0.012989376557172472,
+    "classification_report": {
+      "Routine": {
+        "precision": 0.9856115107913669,
+        "recall": 1.0,
+        "f1-score": 0.9927536231884058,
+        "support": 137.0
+      },
+      "Urgent": {
+        "precision": 1.0,
+        "recall": 0.5,
+        "f1-score": 0.6666666666666666,
+        "support": 4.0
+      },
+      "Critical": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 0.0
+      },
+      "accuracy": 0.9858156028368794,
+      "macro avg": {
+        "precision": 0.6618705035971223,
+        "recall": 0.5,
+        "f1-score": 0.5531400966183574,
+        "support": 141.0
+      },
+      "weighted avg": {
+        "precision": 0.9860196948823918,
+        "recall": 0.9858156028368794,
+        "f1-score": 0.9835029293863706,
+        "support": 141.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        137,
+        0,
+        0
+      ],
+      [
+        2,
+        2,
+        0
+      ],
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "confusion_matrix_label_order": [
+      "Routine",
+      "Urgent",
+      "Critical"
+    ],
+    "note": "Weak-label agreement only. Critical support is zero; recall not assessable. No private row-level data exported."
+  },
+  "models": [
+    {
+      "file": "ner_fp32.onnx",
+      "bytes": 38432,
+      "sha256": "9cf70160edc2617c2f1fc30e23e2d6f229f12ff3162e70db45601e7734bafc1b",
+      "int8_weight_tensors": 0,
+      "quantize_nodes": 0,
+      "dequantize_nodes": 0
+    },
+    {
+      "file": "ner_int8.onnx",
+      "bytes": 21946,
+      "sha256": "4db35919d0d960c6676d66ecb81d867af557b1e9a9081830a3d41fe38640d38e",
+      "int8_weight_tensors": 4,
+      "quantize_nodes": 4,
+      "dequantize_nodes": 7
+    },
+    {
+      "file": "ocr_detector_fp32.onnx",
+      "bytes": 83060732,
+      "sha256": "3fc282e5b40b9937a8dc02a1e289117a0ff960318ebb803f230cf9fe1c0a761f",
+      "int8_weight_tensors": 0,
+      "quantize_nodes": 0,
+      "dequantize_nodes": 0
+    },
+    {
+      "file": "ocr_detector_int8.onnx",
+      "bytes": 20960460,
+      "sha256": "9175aa879b968868294605d0d450a0158de46c3ad53669f381f4306951be5733",
+      "int8_weight_tensors": 54,
+      "quantize_nodes": 53,
+      "dequantize_nodes": 107
+    },
+    {
+      "file": "ocr_recognizer_fp32.onnx",
+      "bytes": 15136696,
+      "sha256": "e03a558ec64c4c32823071bf7b3f83c7ed1229afe95727243b9301e80bec79b4",
+      "int8_weight_tensors": 0,
+      "quantize_nodes": 0,
+      "dequantize_nodes": 0
+    },
+    {
+      "file": "ocr_recognizer_int8.onnx",
+      "bytes": 10161704,
+      "sha256": "974e19fa56a379c77b41664f5673750f1972d24f2506b57cd6ebdd19ce05c3f8",
+      "int8_weight_tensors": 20,
+      "quantize_nodes": 20,
+      "dequantize_nodes": 37
+    },
+    {
+      "file": "urgency_classifier.onnx",
+      "bytes": 195833,
+      "sha256": "3d81afa201346fd214a0e78dfc98b8f90c462f3fbc2fda1edd5b740e5b35b12b",
+      "int8_weight_tensors": 0,
+      "quantize_nodes": 0,
+      "dequantize_nodes": 0
+    },
+    {
+      "file": "urgency_classifier_int8.onnx",
+      "bytes": 142338,
+      "sha256": "091465dae73214ddad6d89fc2eb0680e2410ebd71b197e2218b0be486558152f",
+      "int8_weight_tensors": 2,
+      "quantize_nodes": 2,
+      "dequantize_nodes": 3
+    },
+    {
+      "file": "urgency_classifier_matmul_fp32.onnx",
+      "bytes": 182312,
+      "sha256": "3372a0d0177d6f6baa38b99d8e3a4b020f7226fe63175c00d31ba6de7b5a7363",
+      "int8_weight_tensors": 0,
+      "quantize_nodes": 0,
+      "dequantize_nodes": 0
+    }
+  ],
+  "ocr_precision_comparison": {
+    "results": [
+      {
+        "precision": "fp32",
+        "sample_count": 6,
+        "cer": 0.020053475935828877,
+        "wer": 0.125,
+        "mean_processing_ms": 4431.606616666613,
+        "rows": [
+          {
+            "id": "case_001",
+            "milliseconds": 4407.28769999987,
+            "cer_errors": 2,
+            "cer_length": 135,
+            "wer_errors": 2,
+            "wer_length": 19
+          },
+          {
+            "id": "case_006",
+            "milliseconds": 4949.3772000005265,
+            "cer_errors": 2,
+            "cer_length": 104,
+            "wer_errors": 2,
+            "wer_length": 16
+          },
+          {
+            "id": "case_021",
+            "milliseconds": 3397.785900000599,
+            "cer_errors": 4,
+            "cer_length": 132,
+            "wer_errors": 3,
+            "wer_length": 21
+          },
+          {
+            "id": "case_026",
+            "milliseconds": 3291.7686000000685,
+            "cer_errors": 1,
+            "cer_length": 117,
+            "wer_errors": 1,
+            "wer_length": 14
+          },
+          {
+            "id": "case_041",
+            "milliseconds": 4072.2170999997616,
+            "cer_errors": 2,
+            "cer_length": 133,
+            "wer_errors": 2,
+            "wer_length": 16
+          },
+          {
+            "id": "case_046",
+            "milliseconds": 6471.203199998854,
+            "cer_errors": 4,
+            "cer_length": 127,
+            "wer_errors": 3,
+            "wer_length": 18
+          }
+        ]
+      },
+      {
+        "precision": "int8",
+        "sample_count": 6,
+        "cer": 0.016042780748663103,
+        "wer": 0.09615384615384616,
+        "mean_processing_ms": 3183.755416667433,
+        "rows": [
+          {
+            "id": "case_001",
+            "milliseconds": 3265.786800000569,
+            "cer_errors": 2,
+            "cer_length": 135,
+            "wer_errors": 2,
+            "wer_length": 19
+          },
+          {
+            "id": "case_006",
+            "milliseconds": 3202.149400000053,
+            "cer_errors": 1,
+            "cer_length": 104,
+            "wer_errors": 1,
+            "wer_length": 16
+          },
+          {
+            "id": "case_021",
+            "milliseconds": 3063.2406000004266,
+            "cer_errors": 4,
+            "cer_length": 132,
+            "wer_errors": 3,
+            "wer_length": 21
+          },
+          {
+            "id": "case_026",
+            "milliseconds": 3807.106100000965,
+            "cer_errors": 1,
+            "cer_length": 117,
+            "wer_errors": 1,
+            "wer_length": 14
+          },
+          {
+            "id": "case_041",
+            "milliseconds": 2896.41070000107,
+            "cer_errors": 1,
+            "cer_length": 133,
+            "wer_errors": 1,
+            "wer_length": 16
+          },
+          {
+            "id": "case_046",
+            "milliseconds": 2867.838900001516,
+            "cer_errors": 3,
+            "cer_length": 127,
+            "wer_errors": 2,
+            "wer_length": 18
+          }
+        ]
+      }
+    ],
+    "note": "Six fixed synthetic evaluation pages; sequential FP32 then INT8, one warm host. Small paired engineering comparison, not clinical validation or hardware speed guarantee. Calibration pages are separate."
+  },
+  "versions": {
+    "fastapi": "0.142.2",
+    "uvicorn": "0.54.0",
+    "onnxruntime": "1.30.0",
+    "onnx": "1.23.1",
+    "easyocr": "1.7.2",
+    "torch": "2.14.1+cpu",
+    "torchvision": "0.29.1+cpu",
+    "scikit-learn": "1.9.1",
+    "numpy": "2.5.3",
+    "Pillow": "12.3.0"
+  },
+  "python": "3.12.14"
+}
