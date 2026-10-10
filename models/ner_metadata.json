@@ -1,0 +1,187 @@
+{
+  "architecture": "Embedding32 + Conv1D64 + BIO token linear head",
+  "vocabulary": {
+    "<pad>": 0,
+    "<unk>": 1,
+    "the": 2,
+    "report": 3,
+    "describes": 4,
+    "tension": 5,
+    "pneumothorax": 6,
+    ".": 7,
+    "pleural": 8,
+    "effusion": 9,
+    "pulmonary": 10,
+    "edema": 11,
+    "consolidation": 12,
+    "atelectasis": 13,
+    "cardiomegaly": 14,
+    "opacity": 15,
+    "opacities": 16,
+    "emphysema": 17,
+    "fracture": 18,
+    "pneumonia": 19,
+    "hemothorax": 20,
+    "left": 21,
+    "lung": 22,
+    "right": 23,
+    "lower": 24,
+    "lobe": 25,
+    "lungs": 26,
+    "pleura": 27,
+    "heart": 28,
+    "mediastinum": 29,
+    "aorta": 30,
+    "rib": 31,
+    "spine": 32,
+    "bilateral": 33,
+    "large": 34,
+    "small": 35,
+    "moderate": 36,
+    "mild": 37,
+    "severe": 38,
+    "massive": 39,
+    "acute": 40,
+    "new": 41,
+    "worsening": 42,
+    "stable": 43,
+    "chronic": 44,
+    "resolved": 45,
+    "and": 46,
+    "with": 47,
+    "adjacent": 48,
+    "to": 49,
+    ";": 50,
+    "examination": 51,
+    "is": 52,
+    "otherwise": 53,
+    "unremarkable": 54,
+    "comparison": 55,
+    "unavailable": 56,
+    "no": 57,
+    "additional": 58,
+    "observations": 59,
+    "are": 60,
+    "described": 61,
+    "there": 62,
+    "in": 63,
+    "this": 64,
+    "identified": 65,
+    "possible": 66,
+    "study": 67,
+    "demonstrates": 68,
+    "history": 69,
+    "of": 70,
+    "recorded": 71,
+    "assessment": 72,
+    ":": 73,
+    "present": 74,
+    "impression": 75,
+    "seen": 76
+  },
+  "tags": [
+    "O",
+    "B-FINDING",
+    "I-FINDING",
+    "B-ANATOMY",
+    "I-ANATOMY",
+    "B-LATERALITY",
+    "I-LATERALITY",
+    "B-SEVERITY",
+    "I-SEVERITY",
+    "B-TEMPORAL",
+    "I-TEMPORAL"
+  ],
+  "validation_status": "synthetic_weak_labels_only",
+  "epoch_limit": 80,
+  "best_validation_loss": 0.0171209629625082,
+  "partitions": {
+    "train": 1144,
+    "validation": 286,
+    "test": 286
+  },
+  "calibration": "40 training sentences; held-out sentences excluded",
+  "quantization": "static INT8 QDQ Conv/MatMul; embedding float32",
+  "test_token_metrics": {
+    "O": {
+      "precision": 0.9993935718617344,
+      "recall": 1.0,
+      "f1-score": 0.9996966939642099,
+      "support": 1648.0
+    },
+    "B-FINDING": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 164.0
+    },
+    "I-FINDING": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 51.0
+    },
+    "B-ANATOMY": {
+      "precision": 1.0,
+      "recall": 0.9920634920634921,
+      "f1-score": 0.9960159362549801,
+      "support": 126.0
+    },
+    "I-ANATOMY": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 60.0
+    },
+    "B-LATERALITY": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 41.0
+    },
+    "I-LATERALITY": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 0.0
+    },
+    "B-SEVERITY": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 79.0
+    },
+    "I-SEVERITY": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 0.0
+    },
+    "B-TEMPORAL": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 70.0
+    },
+    "I-TEMPORAL": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 0.0
+    },
+    "accuracy": 0.9995533720410897,
+    "macro avg": {
+      "precision": 0.7272175974419759,
+      "recall": 0.7265512265512265,
+      "f1-score": 0.7268829663835628,
+      "support": 2239.0
+    },
+    "weighted avg": {
+      "precision": 0.9995536428888514,
+      "recall": 0.9995533720410897,
+      "f1-score": 0.9995525500764384,
+      "support": 2239.0
+    }
+  },
+  "limitations": "Template-family holdout of lexicon-generated annotations. Not clinical/entity-span validation; unknown tokens forced O at runtime."
+}

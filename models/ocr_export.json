@@ -1,0 +1,20 @@
+[
+  {
+    "name": "ocr_detector",
+    "fp32_bytes": 83060732,
+    "int8_bytes": 20960460,
+    "int8_initializers": 54,
+    "calibration_examples": 6,
+    "calibration_source": "Original separate rendered sentences; no evaluation pages or Open-I rows",
+    "precision": "QDQ static INT8 Conv/MatMul; LSTM and other operators remain floating point"
+  },
+  {
+    "name": "ocr_recognizer",
+    "fp32_bytes": 15136696,
+    "int8_bytes": 10161704,
+    "int8_initializers": 20,
+    "calibration_examples": 6,
+    "calibration_source": "Original separate rendered sentences; no evaluation pages or Open-I rows",
+    "precision": "QDQ static INT8 Conv/MatMul; LSTM and other operators remain floating point"
+  }
+]
