@@ -1,0 +1,18 @@
+[Unit]
+Description=RadNote-AI CPU inference server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=REPLACE_WITH_UBUNTU_USERNAME
+WorkingDirectory=/home/REPLACE_WITH_UBUNTU_USERNAME/RadNote-AI_Complete_Project
+Environment=RADNOTE_ENABLE_OCR=1
+Environment=RADNOTE_ALLOW_MODEL_DOWNLOAD=0
+Environment=RADNOTE_CPU_THREADS=2
+ExecStart=/home/REPLACE_WITH_UBUNTU_USERNAME/RadNote-AI_Complete_Project/.venv/bin/python -m uvicorn api.main:app --host 0.0.0.0 --port 8000
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
