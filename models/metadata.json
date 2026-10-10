@@ -1,0 +1,32 @@
+{
+  "model_name": "Open-I provisional TF-IDF + balanced Logistic Regression",
+  "source": "Indiana University Open-I report text; weak labels, duplicate-grouped deterministic splits",
+  "validation_status": "provisional_weak_labels",
+  "classes": [
+    "Routine",
+    "Urgent",
+    "Critical"
+  ],
+  "test_support": {
+    "Routine": 137,
+    "Urgent": 4,
+    "Critical": 0
+  },
+  "train_support": {
+    "Routine": 638,
+    "Urgent": 19,
+    "Critical": 1
+  },
+  "test_macro_f1": 0.5531400966183574,
+  "test_accuracy": 0.9858156028368794,
+  "model_format": "Static INT8 QDQ classifier MatMul; TF-IDF/preprocessing remain native/float32",
+  "scores_calibrated": false,
+  "review_note": "Critical recall is not assessable. The three-class acceptance gates have not passed. Review every result.",
+  "class_order": [
+    "Critical",
+    "Routine",
+    "Urgent"
+  ],
+  "calibration_rows": 658,
+  "calibration_partition": "training only; raw rows not packaged"
+}
