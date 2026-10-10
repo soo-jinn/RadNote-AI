@@ -1,3 +1,9 @@
+"""Apply Group 4's provisional, text-first weak-label screen to a private CSV.
+
+This is an educational rule-based label proposal, not clinical triage. Keep the
+source-derived CSV private. Unclear or conflicting examples remain REVIEW.
+"""
+
 from __future__ import annotations
 
 import argparse
