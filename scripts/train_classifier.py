@@ -1,3 +1,5 @@
+"""Train and evaluate the RadNote-AI Sprint 1 urgency text baseline."""
+
 from __future__ import annotations
 
 import argparse
