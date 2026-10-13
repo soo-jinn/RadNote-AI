@@ -1,0 +1,663 @@
+{
+  "created_utc": "2026-10-13T06:22:24.088879+00:00",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "python": "3.12.14",
+  "cpu_threads": "2",
+  "models": [
+    {
+      "file": "ner_fp32.onnx",
+      "bytes": 38432,
+      "sha256": "9cf70160edc2617c2f1fc30e23e2d6f229f12ff3162e70db45601e7734bafc1b"
+    },
+    {
+      "file": "ner_int8.onnx",
+      "bytes": 21946,
+      "sha256": "4db35919d0d960c6676d66ecb81d867af557b1e9a9081830a3d41fe38640d38e"
+    },
+    {
+      "file": "ocr_detector_fp32.onnx",
+      "bytes": 83060732,
+      "sha256": "3fc282e5b40b9937a8dc02a1e289117a0ff960318ebb803f230cf9fe1c0a761f"
+    },
+    {
+      "file": "ocr_detector_int8.onnx",
+      "bytes": 20960460,
+      "sha256": "9175aa879b968868294605d0d450a0158de46c3ad53669f381f4306951be5733"
+    },
+    {
+      "file": "ocr_recognizer_fp32.onnx",
+      "bytes": 15136696,
+      "sha256": "e03a558ec64c4c32823071bf7b3f83c7ed1229afe95727243b9301e80bec79b4"
+    },
+    {
+      "file": "ocr_recognizer_int8.onnx",
+      "bytes": 10161704,
+      "sha256": "974e19fa56a379c77b41664f5673750f1972d24f2506b57cd6ebdd19ce05c3f8"
+    },
+    {
+      "file": "urgency_classifier_int8.onnx",
+      "bytes": 142338,
+      "sha256": "091465dae73214ddad6d89fc2eb0680e2410ebd71b197e2218b0be486558152f"
+    },
+    {
+      "file": "urgency_classifier_matmul_fp32.onnx",
+      "bytes": 182312,
+      "sha256": "3372a0d0177d6f6baa38b99d8e3a4b020f7226fe63175c00d31ba6de7b5a7363"
+    }
+  ],
+  "results": [
+    {
+      "precision": "fp32",
+      "health": {
+        "status": "ok",
+        "classifier_ready": true,
+        "ocr_ready": true,
+        "ner_ready": true,
+        "ner_backend": "ONNX Runtime / synthetic-trained BIO tagger",
+        "precision": "fp32",
+        "ocr_backend": "ONNX Runtime CPU / fp32 Conv-MatMul",
+        "classifier_backend": "ONNX Runtime",
+        "providers": [
+          "CPUExecutionProvider"
+        ],
+        "validation_status": "provisional_weak_labels",
+        "ocr_error": null,
+        "version": "3.0.0"
+      },
+      "model_load_ms": 4871.516400000473,
+      "unique_synthetic_pages": 6,
+      "trials": 12,
+      "repeats": 2,
+      "warmups_per_page": 1,
+      "ocr_cer": 0.020053475935828877,
+      "ocr_wer": 0.125,
+      "mean_pipeline_ms": 3189.522483333652,
+      "p50_pipeline_ms": 3166.182150000168,
+      "p95_pipeline_ms": 3310.0706199999877,
+      "max_sampled_rss_mb": 1299.51953125,
+      "synthetic_scenario_agreement": 0.5,
+      "ner_synthetic_token_metrics": {
+        "test_sentences": 286,
+        "tokens": 2239,
+        "token_accuracy": 0.9995533720410897,
+        "per_tag": {
+          "O": {
+            "support": 1648,
+            "precision": 0.9993935718617344,
+            "recall": 1.0,
+            "f1": 0.9996966939642099
+          },
+          "B-FINDING": {
+            "support": 164,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "I-FINDING": {
+            "support": 51,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "B-ANATOMY": {
+            "support": 126,
+            "precision": 1.0,
+            "recall": 0.9920634920634921,
+            "f1": 0.9960159362549801
+          },
+          "I-ANATOMY": {
+            "support": 60,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "B-LATERALITY": {
+            "support": 41,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "I-LATERALITY": {
+            "support": 0,
+            "precision": 0.0,
+            "recall": null,
+            "f1": null
+          },
+          "B-SEVERITY": {
+            "support": 79,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "I-SEVERITY": {
+            "support": 0,
+            "precision": 0.0,
+            "recall": null,
+            "f1": null
+          },
+          "B-TEMPORAL": {
+            "support": 70,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "I-TEMPORAL": {
+            "support": 0,
+            "precision": 0.0,
+            "recall": null,
+            "f1": null
+          }
+        },
+        "scope": "Synthetic weak BIO token agreement; shared lexicon across family partitions, not clinical span validation."
+      },
+      "classifier_private_holdout_metrics": {
+        "rows": 141,
+        "accuracy": 0.9858156028368794,
+        "macro_f1_three_labels_zero_for_unsupported": 0.5531400966183574,
+        "per_class": {
+          "Routine": {
+            "support": 137,
+            "precision": 0.9856115107913669,
+            "recall": 1.0,
+            "f1": 0.9927536231884058
+          },
+          "Urgent": {
+            "support": 4,
+            "precision": 1.0,
+            "recall": 0.5,
+            "f1": 0.6666666666666666
+          },
+          "Critical": {
+            "support": 0,
+            "precision": 0.0,
+            "recall": null,
+            "f1": null
+          }
+        },
+        "confusion_matrix": [
+          [
+            137,
+            0,
+            0
+          ],
+          [
+            2,
+            2,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "label_order": [
+          "Routine",
+          "Urgent",
+          "Critical"
+        ],
+        "validation_scope": "Weak-label agreement only; missing class support is unassessable."
+      },
+      "rows": [
+        {
+          "case": "case_001",
+          "trial": 1,
+          "milliseconds": 3203.1317000000854,
+          "rss_mb": 1294.765625,
+          "cer_errors": 2,
+          "cer_length": 135,
+          "wer_errors": 2,
+          "wer_length": 19,
+          "scenario_label": "Routine",
+          "predicted_label": "Routine"
+        },
+        {
+          "case": "case_001",
+          "trial": 2,
+          "milliseconds": 3162.2690000003786,
+          "rss_mb": 1295.59375,
+          "cer_errors": 2,
+          "cer_length": 135,
+          "wer_errors": 2,
+          "wer_length": 19,
+          "scenario_label": "Routine",
+          "predicted_label": "Routine"
+        },
+        {
+          "case": "case_006",
+          "trial": 1,
+          "milliseconds": 3397.6402999996935,
+          "rss_mb": 1296.81640625,
+          "cer_errors": 2,
+          "cer_length": 104,
+          "wer_errors": 2,
+          "wer_length": 16,
+          "scenario_label": "Routine",
+          "predicted_label": "Routine"
+        },
+        {
+          "case": "case_006",
+          "trial": 2,
+          "milliseconds": 3168.6791000011,
+          "rss_mb": 1296.8203125,
+          "cer_errors": 2,
+          "cer_length": 104,
+          "wer_errors": 2,
+          "wer_length": 16,
+          "scenario_label": "Routine",
+          "predicted_label": "Routine"
+        },
+        {
+          "case": "case_021",
+          "trial": 1,
+          "milliseconds": 3238.4227000002284,
+          "rss_mb": 1297.8828125,
+          "cer_errors": 4,
+          "cer_length": 132,
+          "wer_errors": 3,
+          "wer_length": 21,
+          "scenario_label": "Urgent",
+          "predicted_label": "Urgent"
+        },
+        {
+          "case": "case_021",
+          "trial": 2,
+          "milliseconds": 3103.661300001477,
+          "rss_mb": 1297.88671875,
+          "cer_errors": 4,
+          "cer_length": 132,
+          "wer_errors": 3,
+          "wer_length": 21,
+          "scenario_label": "Urgent",
+          "predicted_label": "Urgent"
+        },
+        {
+          "case": "case_026",
+          "trial": 1,
+          "milliseconds": 3163.681500000166,
+          "rss_mb": 1298.19140625,
+          "cer_errors": 1,
+          "cer_length": 117,
+          "wer_errors": 1,
+          "wer_length": 14,
+          "scenario_label": "Urgent",
+          "predicted_label": "Routine"
+        },
+        {
+          "case": "case_026",
+          "trial": 2,
+          "milliseconds": 3163.685199999236,
+          "rss_mb": 1298.203125,
+          "cer_errors": 1,
+          "cer_length": 117,
+          "wer_errors": 1,
+          "wer_length": 14,
+          "scenario_label": "Urgent",
+          "predicted_label": "Routine"
+        },
+        {
+          "case": "case_041",
+          "trial": 1,
+          "milliseconds": 3191.638900001635,
+          "rss_mb": 1299.28125,
+          "cer_errors": 2,
+          "cer_length": 133,
+          "wer_errors": 2,
+          "wer_length": 16,
+          "scenario_label": "Critical",
+          "predicted_label": "Urgent"
+        },
+        {
+          "case": "case_041",
+          "trial": 2,
+          "milliseconds": 3206.0072000003856,
+          "rss_mb": 1299.29296875,
+          "cer_errors": 2,
+          "cer_length": 133,
+          "wer_errors": 2,
+          "wer_length": 16,
+          "scenario_label": "Critical",
+          "predicted_label": "Urgent"
+        },
+        {
+          "case": "case_046",
+          "trial": 1,
+          "milliseconds": 3156.821700000364,
+          "rss_mb": 1299.51171875,
+          "cer_errors": 4,
+          "cer_length": 127,
+          "wer_errors": 3,
+          "wer_length": 18,
+          "scenario_label": "Critical",
+          "predicted_label": "Urgent"
+        },
+        {
+          "case": "case_046",
+          "trial": 2,
+          "milliseconds": 3118.631199999072,
+          "rss_mb": 1299.51953125,
+          "cer_errors": 4,
+          "cer_length": 127,
+          "wer_errors": 3,
+          "wer_length": 18,
+          "scenario_label": "Critical",
+          "predicted_label": "Urgent"
+        }
+      ]
+    },
+    {
+      "precision": "int8",
+      "health": {
+        "status": "ok",
+        "classifier_ready": true,
+        "ocr_ready": true,
+        "ner_ready": true,
+        "ner_backend": "ONNX Runtime / synthetic-trained BIO tagger",
+        "precision": "int8",
+        "ocr_backend": "ONNX Runtime CPU / int8 Conv-MatMul",
+        "classifier_backend": "ONNX Runtime",
+        "providers": [
+          "CPUExecutionProvider"
+        ],
+        "validation_status": "provisional_weak_labels",
+        "ocr_error": null,
+        "version": "3.0.0"
+      },
+      "model_load_ms": 139.68000000022585,
+      "unique_synthetic_pages": 6,
+      "trials": 12,
+      "repeats": 2,
+      "warmups_per_page": 1,
+      "ocr_cer": 0.016042780748663103,
+      "ocr_wer": 0.09615384615384616,
+      "mean_pipeline_ms": 2790.351341666792,
+      "p50_pipeline_ms": 2781.9937000003847,
+      "p95_pipeline_ms": 2845.9522099992682,
+      "max_sampled_rss_mb": 1232.66015625,
+      "synthetic_scenario_agreement": 0.5,
+      "ner_synthetic_token_metrics": {
+        "test_sentences": 286,
+        "tokens": 2239,
+        "token_accuracy": 0.9995533720410897,
+        "per_tag": {
+          "O": {
+            "support": 1648,
+            "precision": 0.9993935718617344,
+            "recall": 1.0,
+            "f1": 0.9996966939642099
+          },
+          "B-FINDING": {
+            "support": 164,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "I-FINDING": {
+            "support": 51,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "B-ANATOMY": {
+            "support": 126,
+            "precision": 1.0,
+            "recall": 0.9920634920634921,
+            "f1": 0.9960159362549801
+          },
+          "I-ANATOMY": {
+            "support": 60,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "B-LATERALITY": {
+            "support": 41,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "I-LATERALITY": {
+            "support": 0,
+            "precision": 0.0,
+            "recall": null,
+            "f1": null
+          },
+          "B-SEVERITY": {
+            "support": 79,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "I-SEVERITY": {
+            "support": 0,
+            "precision": 0.0,
+            "recall": null,
+            "f1": null
+          },
+          "B-TEMPORAL": {
+            "support": 70,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0
+          },
+          "I-TEMPORAL": {
+            "support": 0,
+            "precision": 0.0,
+            "recall": null,
+            "f1": null
+          }
+        },
+        "scope": "Synthetic weak BIO token agreement; shared lexicon across family partitions, not clinical span validation."
+      },
+      "classifier_private_holdout_metrics": {
+        "rows": 141,
+        "accuracy": 0.9858156028368794,
+        "macro_f1_three_labels_zero_for_unsupported": 0.5531400966183574,
+        "per_class": {
+          "Routine": {
+            "support": 137,
+            "precision": 0.9856115107913669,
+            "recall": 1.0,
+            "f1": 0.9927536231884058
+          },
+          "Urgent": {
+            "support": 4,
+            "precision": 1.0,
+            "recall": 0.5,
+            "f1": 0.6666666666666666
+          },
+          "Critical": {
+            "support": 0,
+            "precision": 0.0,
+            "recall": null,
+            "f1": null
+          }
+        },
+        "confusion_matrix": [
+          [
+            137,
+            0,
+            0
+          ],
+          [
+            2,
+            2,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "label_order": [
+          "Routine",
+          "Urgent",
+          "Critical"
+        ],
+        "validation_scope": "Weak-label agreement only; missing class support is unassessable."
+      },
+      "rows": [
+        {
+          "case": "case_001",
+          "trial": 1,
+          "milliseconds": 2877.106299998559,
+          "rss_mb": 1218.46484375,
+          "cer_errors": 2,
+          "cer_length": 135,
+          "wer_errors": 2,
+          "wer_length": 19,
+          "scenario_label": "Routine",
+          "predicted_label": "Routine"
+        },
+        {
+          "case": "case_001",
+          "trial": 2,
+          "milliseconds": 2820.4624999998487,
+          "rss_mb": 1218.44140625,
+          "cer_errors": 2,
+          "cer_length": 135,
+          "wer_errors": 2,
+          "wer_length": 19,
+          "scenario_label": "Routine",
+          "predicted_label": "Routine"
+        },
+        {
+          "case": "case_006",
+          "trial": 1,
+          "milliseconds": 2753.94580000102,
+          "rss_mb": 1218.0546875,
+          "cer_errors": 1,
+          "cer_length": 104,
+          "wer_errors": 1,
+          "wer_length": 16,
+          "scenario_label": "Routine",
+          "predicted_label": "Routine"
+        },
+        {
+          "case": "case_006",
+          "trial": 2,
+          "milliseconds": 2779.6052000012423,
+          "rss_mb": 1218.05859375,
+          "cer_errors": 1,
+          "cer_length": 104,
+          "wer_errors": 1,
+          "wer_length": 16,
+          "scenario_label": "Routine",
+          "predicted_label": "Routine"
+        },
+        {
+          "case": "case_021",
+          "trial": 1,
+          "milliseconds": 2805.771299999833,
+          "rss_mb": 1232.65625,
+          "cer_errors": 4,
+          "cer_length": 132,
+          "wer_errors": 3,
+          "wer_length": 21,
+          "scenario_label": "Urgent",
+          "predicted_label": "Urgent"
+        },
+        {
+          "case": "case_021",
+          "trial": 2,
+          "milliseconds": 2784.382199999527,
+          "rss_mb": 1232.65625,
+          "cer_errors": 4,
+          "cer_length": 132,
+          "wer_errors": 3,
+          "wer_length": 21,
+          "scenario_label": "Urgent",
+          "predicted_label": "Urgent"
+        },
+        {
+          "case": "case_026",
+          "trial": 1,
+          "milliseconds": 2762.5688999996783,
+          "rss_mb": 1232.03515625,
+          "cer_errors": 1,
+          "cer_length": 117,
+          "wer_errors": 1,
+          "wer_length": 14,
+          "scenario_label": "Urgent",
+          "predicted_label": "Routine"
+        },
+        {
+          "case": "case_026",
+          "trial": 2,
+          "milliseconds": 2759.2234000003373,
+          "rss_mb": 1232.03515625,
+          "cer_errors": 1,
+          "cer_length": 117,
+          "wer_errors": 1,
+          "wer_length": 14,
+          "scenario_label": "Urgent",
+          "predicted_label": "Routine"
+        },
+        {
+          "case": "case_041",
+          "trial": 1,
+          "milliseconds": 2801.142099999197,
+          "rss_mb": 1232.66015625,
+          "cer_errors": 1,
+          "cer_length": 133,
+          "wer_errors": 1,
+          "wer_length": 16,
+          "scenario_label": "Critical",
+          "predicted_label": "Urgent"
+        },
+        {
+          "case": "case_041",
+          "trial": 2,
+          "milliseconds": 2818.6314000013226,
+          "rss_mb": 1232.66015625,
+          "cer_errors": 1,
+          "cer_length": 133,
+          "wer_errors": 1,
+          "wer_length": 16,
+          "scenario_label": "Critical",
+          "predicted_label": "Urgent"
+        },
+        {
+          "case": "case_046",
+          "trial": 1,
+          "milliseconds": 2754.572300000291,
+          "rss_mb": 1232.59765625,
+          "cer_errors": 3,
+          "cer_length": 127,
+          "wer_errors": 2,
+          "wer_length": 18,
+          "scenario_label": "Critical",
+          "predicted_label": "Urgent"
+        },
+        {
+          "case": "case_046",
+          "trial": 2,
+          "milliseconds": 2766.804700000648,
+          "rss_mb": 1232.59765625,
+          "cer_errors": 3,
+          "cer_length": 127,
+          "wer_errors": 2,
+          "wer_length": 18,
+          "scenario_label": "Critical",
+          "predicted_label": "Urgent"
+        }
+      ]
+    }
+  ],
+  "classifier_same_synthetic_text_fidelity": {
+    "rows": 6,
+    "matching_labels": 6,
+    "max_probability_drift": 0.020876646041870117
+  },
+  "classifier_private_holdout_fidelity": {
+    "rows": 141,
+    "matching_labels": 141,
+    "max_probability_drift": 0.005878359079360962
+  },
+  "notes": [
+    "Sequential FP32 then INT8, repeated matched synthetic pages, one named host. No speedup or independent clinical accuracy guarantee.",
+    "Supported Conv/MatMul layers are INT8; unsupported operations remain floating point.",
+    "Private holdout metrics are absent unless an authorized CSV was supplied. No raw reports or private row predictions are exported."
+  ]
+}

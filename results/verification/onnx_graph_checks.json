@@ -1,0 +1,38 @@
+{
+  "models_checked": 8,
+  "checker_passed": true,
+  "locale": [
+    {
+      "file": "ner_fp32.onnx",
+      "locale_attributes": []
+    },
+    {
+      "file": "ner_int8.onnx",
+      "locale_attributes": []
+    },
+    {
+      "file": "ocr_detector_fp32.onnx",
+      "locale_attributes": []
+    },
+    {
+      "file": "ocr_detector_int8.onnx",
+      "locale_attributes": []
+    },
+    {
+      "file": "ocr_recognizer_fp32.onnx",
+      "locale_attributes": []
+    },
+    {
+      "file": "ocr_recognizer_int8.onnx",
+      "locale_attributes": []
+    },
+    {
+      "file": "urgency_classifier_int8.onnx",
+      "locale_attributes": []
+    },
+    {
+      "file": "urgency_classifier_matmul_fp32.onnx",
+      "locale_attributes": []
+    }
+  ]
+}
