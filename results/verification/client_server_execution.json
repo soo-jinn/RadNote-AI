@@ -1,0 +1,172 @@
+{
+  "mode": "http",
+  "server": "http://127.0.0.1:8753",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "health": {
+    "status": "ok",
+    "classifier_ready": true,
+    "ocr_ready": true,
+    "ner_ready": true,
+    "ner_backend": "ONNX Runtime / synthetic-trained BIO tagger",
+    "precision": "int8",
+    "ocr_backend": "ONNX Runtime CPU / int8 Conv-MatMul",
+    "classifier_backend": "ONNX Runtime",
+    "providers": [
+      "CPUExecutionProvider"
+    ],
+    "validation_status": "provisional_weak_labels",
+    "ocr_error": null,
+    "version": "3.0.0"
+  },
+  "warmups_per_case_kind": 1,
+  "repeats": 2,
+  "summary": {
+    "text": {
+      "trials": 6,
+      "mean_ms": 18.59624999967006,
+      "p50_ms": 16.107200000078592,
+      "p95_ms": 34.994824999103
+    },
+    "image": {
+      "trials": 6,
+      "mean_ms": 2823.4841333335985,
+      "p50_ms": 2822.243349999553,
+      "p95_ms": 2845.5888000012237
+    }
+  },
+  "rows": [
+    {
+      "case": "case_001",
+      "kind": "text",
+      "trial": 1,
+      "elapsed_ms": 20.828599999731523,
+      "input_sha256": "07f69a339a9e936be974297bae7714c6879064e5f91d23ca356be8888a1e71f9",
+      "urgency": "Routine",
+      "extracted_text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "server_processing_ms": 0.56,
+      "model_sha256": "091465dae73214ddad6d89fc2eb0680e2410ebd71b197e2218b0be486558152f"
+    },
+    {
+      "case": "case_001",
+      "kind": "text",
+      "trial": 2,
+      "elapsed_ms": 9.66100000005099,
+      "input_sha256": "07f69a339a9e936be974297bae7714c6879064e5f91d23ca356be8888a1e71f9",
+      "urgency": "Routine",
+      "extracted_text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "server_processing_ms": 0.5,
+      "model_sha256": "091465dae73214ddad6d89fc2eb0680e2410ebd71b197e2218b0be486558152f"
+    },
+    {
+      "case": "case_001",
+      "kind": "image",
+      "trial": 1,
+      "elapsed_ms": 2825.0131999993755,
+      "input_sha256": "e47c556068d4e327240e361bcc1f3ee5600b60125771a7191cab725f817feb53",
+      "urgency": "Routine",
+      "extracted_text_sha256": "6bccad97b2aac4426a33c825123b2ecb261dc1d229458ad5fe1cc366181ed97a",
+      "server_processing_ms": 2815.15,
+      "model_sha256": "091465dae73214ddad6d89fc2eb0680e2410ebd71b197e2218b0be486558152f"
+    },
+    {
+      "case": "case_001",
+      "kind": "image",
+      "trial": 2,
+      "elapsed_ms": 2852.328300001318,
+      "input_sha256": "e47c556068d4e327240e361bcc1f3ee5600b60125771a7191cab725f817feb53",
+      "urgency": "Routine",
+      "extracted_text_sha256": "6bccad97b2aac4426a33c825123b2ecb261dc1d229458ad5fe1cc366181ed97a",
+      "server_processing_ms": 2835.33,
+      "model_sha256": "091465dae73214ddad6d89fc2eb0680e2410ebd71b197e2218b0be486558152f"
+    },
+    {
+      "case": "case_021",
+      "kind": "text",
+      "trial": 1,
+      "elapsed_ms": 11.391899999580346,
+      "input_sha256": "b48d10ec36bd39228f91bf64f690099a4653eaa2e702db2ad5bcd7b2cc2e2dab",
+      "urgency": "Urgent",
+      "extracted_text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "server_processing_ms": 0.52,
+      "model_sha256": "091465dae73214ddad6d89fc2eb0680e2410ebd71b197e2218b0be486558152f"
+    },
+    {
+      "case": "case_021",
+      "kind": "text",
+      "trial": 2,
+      "elapsed_ms": 39.716899998893496,
+      "input_sha256": "b48d10ec36bd39228f91bf64f690099a4653eaa2e702db2ad5bcd7b2cc2e2dab",
+      "urgency": "Urgent",
+      "extracted_text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "server_processing_ms": 0.59,
+      "model_sha256": "091465dae73214ddad6d89fc2eb0680e2410ebd71b197e2218b0be486558152f"
+    },
+    {
+      "case": "case_021",
+      "kind": "image",
+      "trial": 1,
+      "elapsed_ms": 2805.253000000448,
+      "input_sha256": "abdf593b60baf5bfbefeb10e0f7d6a7963abb19b92a371240f1741c8ebbcfb7e",
+      "urgency": "Urgent",
+      "extracted_text_sha256": "5f8867d20ffc33b638948e4f02bd88ddfcd8b980cb990402aa412daa058fa9c6",
+      "server_processing_ms": 2792.13,
+      "model_sha256": "091465dae73214ddad6d89fc2eb0680e2410ebd71b197e2218b0be486558152f"
+    },
+    {
+      "case": "case_021",
+      "kind": "image",
+      "trial": 2,
+      "elapsed_ms": 2819.473499999731,
+      "input_sha256": "abdf593b60baf5bfbefeb10e0f7d6a7963abb19b92a371240f1741c8ebbcfb7e",
+      "urgency": "Urgent",
+      "extracted_text_sha256": "5f8867d20ffc33b638948e4f02bd88ddfcd8b980cb990402aa412daa058fa9c6",
+      "server_processing_ms": 2797.06,
+      "model_sha256": "091465dae73214ddad6d89fc2eb0680e2410ebd71b197e2218b0be486558152f"
+    },
+    {
+      "case": "case_041",
+      "kind": "text",
+      "trial": 1,
+      "elapsed_ms": 9.156599999187165,
+      "input_sha256": "86d9295e6ef0f6670fa876fa8ebd336f6f1ee8ebf1437542e23031a4c74d0669",
+      "urgency": "Urgent",
+      "extracted_text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "server_processing_ms": 0.41,
+      "model_sha256": "091465dae73214ddad6d89fc2eb0680e2410ebd71b197e2218b0be486558152f"
+    },
+    {
+      "case": "case_041",
+      "kind": "text",
+      "trial": 2,
+      "elapsed_ms": 20.822500000576838,
+      "input_sha256": "86d9295e6ef0f6670fa876fa8ebd336f6f1ee8ebf1437542e23031a4c74d0669",
+      "urgency": "Urgent",
+      "extracted_text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "server_processing_ms": 0.5,
+      "model_sha256": "091465dae73214ddad6d89fc2eb0680e2410ebd71b197e2218b0be486558152f"
+    },
+    {
+      "case": "case_041",
+      "kind": "image",
+      "trial": 1,
+      "elapsed_ms": 2813.4664999997767,
+      "input_sha256": "0df638370c8647b27038cb5c1e67a111ef055da79332d2f6e2ff186ee40116a7",
+      "urgency": "Urgent",
+      "extracted_text_sha256": "715373a7a4af0891f0a1c00ecc5e5ba2d9d610d2966422c5de1f08a4e1f4bed4",
+      "server_processing_ms": 2792.86,
+      "model_sha256": "091465dae73214ddad6d89fc2eb0680e2410ebd71b197e2218b0be486558152f"
+    },
+    {
+      "case": "case_041",
+      "kind": "image",
+      "trial": 2,
+      "elapsed_ms": 2825.370300000941,
+      "input_sha256": "0df638370c8647b27038cb5c1e67a111ef055da79332d2f6e2ff186ee40116a7",
+      "urgency": "Urgent",
+      "extracted_text_sha256": "715373a7a4af0891f0a1c00ecc5e5ba2d9d610d2966422c5de1f08a4e1f4bed4",
+      "server_processing_ms": 2812.47,
+      "model_sha256": "091465dae73214ddad6d89fc2eb0680e2410ebd71b197e2218b0be486558152f"
+    }
+  ],
+  "scope": "Direct in-process pipeline versus HTTP through the client-server route, on matching synthetic inputs. Both may run in the same Ubuntu VM; Docker bridge overhead is not a physical LAN measurement."
+}

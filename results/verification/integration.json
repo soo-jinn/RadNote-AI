@@ -1,0 +1,206 @@
+{
+  "platform": "Windows-11-10.0.26200-SP0",
+  "hardware_scope": "Portable browser/CLI client and CPU backend. Name the actual VM/container/host separately; this does not establish Raspberry Pi verification.",
+  "health": {
+    "status": "ok",
+    "classifier_ready": true,
+    "ocr_ready": true,
+    "ner_ready": true,
+    "ner_backend": "ONNX Runtime / synthetic-trained BIO tagger",
+    "precision": "int8",
+    "ocr_backend": "ONNX Runtime CPU / int8 Conv-MatMul",
+    "classifier_backend": "ONNX Runtime",
+    "providers": [
+      "CPUExecutionProvider"
+    ],
+    "validation_status": "provisional_weak_labels",
+    "ocr_error": null,
+    "version": "3.0.0"
+  },
+  "checks": {
+    "all_components_ready": true,
+    "onnx_cpu_backend": true,
+    "direct_ui": true,
+    "proxy_ui": true,
+    "proxy_health": true,
+    "proxy_text": true,
+    "review_flag": true,
+    "case_001_real_ocr": true,
+    "case_001_proxy_same_result": true,
+    "case_021_real_ocr": true,
+    "case_021_proxy_same_result": true,
+    "case_041_real_ocr": true,
+    "case_041_proxy_same_result": true
+  },
+  "responses": {
+    "case_001": {
+      "request_id": "6fe5f175-7719-447a-a112-b75ec19f77aa",
+      "urgency": "Routine",
+      "critical_alert": false,
+      "probabilities": {
+        "Critical": 0.0055765737779438496,
+        "Routine": 0.9654772281646729,
+        "Urgent": 0.028946269303560257
+      },
+      "review_required": true,
+      "review_reasons": [
+        "Model validation incomplete: very limited Urgent support and no Critical held-out cases."
+      ],
+      "findings": "The lungs are clear. Heart size is normal_ No pleural effusion or\npneumothorax",
+      "impression": "No acute cardiopulmonary process.",
+      "entities": [
+        {
+          "text": "Heart",
+          "label": "ANATOMY",
+          "start": 21,
+          "end": 26,
+          "assertion": "affirmed"
+        },
+        {
+          "text": "pleural effusion",
+          "label": "FINDING",
+          "start": 46,
+          "end": 62,
+          "assertion": "negated"
+        },
+        {
+          "text": "pneumothorax",
+          "label": "FINDING",
+          "start": 66,
+          "end": 78,
+          "assertion": "negated"
+        },
+        {
+          "text": "acute",
+          "label": "TEMPORAL",
+          "start": 82,
+          "end": 87,
+          "assertion": "negated"
+        }
+      ],
+      "extracted_text": "FINDINGS:\nThe lungs are clear. Heart size is normal_ No pleural effusion or\npneumothorax\nIMPRESSION:\nNo acute cardiopulmonary process.",
+      "latency_ms": 2879.63,
+      "model_sha256": "091465dae73214ddad6d89fc2eb0680e2410ebd71b197e2218b0be486558152f",
+      "note": "Academic prototype. Urgency uses weak labels; NER uses synthetic weak annotations. Scores are not calibrated confidence. Review every result.",
+      "client_round_trip_ms": 2920.59
+    },
+    "case_021": {
+      "request_id": "91eb9e56-8e9d-4d32-bbf8-cd0d07466a44",
+      "urgency": "Urgent",
+      "critical_alert": false,
+      "probabilities": {
+        "Critical": 0.016404766589403152,
+        "Routine": 0.25305452942848206,
+        "Urgent": 0.7305407524108887
+      },
+      "review_required": true,
+      "review_reasons": [
+        "Model validation incomplete: very limited Urgent support and no Critical held-out cases."
+      ],
+      "findings": "new focal consolidation is present in the right lower lobe_",
+      "impression": "New focal consolidation in the right lower lobe",
+      "entities": [
+        {
+          "text": "new",
+          "label": "TEMPORAL",
+          "start": 0,
+          "end": 3,
+          "assertion": "affirmed"
+        },
+        {
+          "text": "consolidation",
+          "label": "FINDING",
+          "start": 10,
+          "end": 23,
+          "assertion": "affirmed"
+        },
+        {
+          "text": "right",
+          "label": "ANATOMY",
+          "start": 42,
+          "end": 47,
+          "assertion": "affirmed"
+        },
+        {
+          "text": "New",
+          "label": "TEMPORAL",
+          "start": 60,
+          "end": 63,
+          "assertion": "affirmed"
+        },
+        {
+          "text": "consolidation",
+          "label": "FINDING",
+          "start": 70,
+          "end": 83,
+          "assertion": "affirmed"
+        },
+        {
+          "text": "right lower lobe",
+          "label": "ANATOMY",
+          "start": 91,
+          "end": 107,
+          "assertion": "affirmed"
+        }
+      ],
+      "extracted_text": "FINDINGS:\nnew focal consolidation is present in the right lower lobe_\nIMPRESSION:\nNew focal consolidation in the right lower lobe",
+      "latency_ms": 2807.57,
+      "model_sha256": "091465dae73214ddad6d89fc2eb0680e2410ebd71b197e2218b0be486558152f",
+      "note": "Academic prototype. Urgency uses weak labels; NER uses synthetic weak annotations. Scores are not calibrated confidence. Review every result.",
+      "client_round_trip_ms": 2819.52
+    },
+    "case_041": {
+      "request_id": "5ffc56e0-c8e4-4631-bba5-c7f6ca800254",
+      "urgency": "Urgent",
+      "critical_alert": false,
+      "probabilities": {
+        "Critical": 0.05963268131017685,
+        "Routine": 0.24733591079711914,
+        "Urgent": 0.6930314302444458
+      },
+      "review_required": true,
+      "review_reasons": [
+        "Model validation incomplete: very limited Urgent support and no Critical held-out cases.",
+        "Classifier score is below the configured review threshold."
+      ],
+      "findings": "Large right pneumothorax with mediastinal shift is present_",
+      "impression": "Tension pneumothorax. Emergent review is requested.",
+      "entities": [
+        {
+          "text": "Large",
+          "label": "SEVERITY",
+          "start": 0,
+          "end": 5,
+          "assertion": "affirmed"
+        },
+        {
+          "text": "right",
+          "label": "LATERALITY",
+          "start": 6,
+          "end": 11,
+          "assertion": "affirmed"
+        },
+        {
+          "text": "pneumothorax",
+          "label": "FINDING",
+          "start": 12,
+          "end": 24,
+          "assertion": "affirmed"
+        },
+        {
+          "text": "Tension pneumothorax",
+          "label": "FINDING",
+          "start": 60,
+          "end": 80,
+          "assertion": "affirmed"
+        }
+      ],
+      "extracted_text": "FINDINGS:\nLarge right pneumothorax with mediastinal shift is present_\nIMPRESSION:\nTension pneumothorax. Emergent review is requested.",
+      "latency_ms": 2789.7,
+      "model_sha256": "091465dae73214ddad6d89fc2eb0680e2410ebd71b197e2218b0be486558152f",
+      "note": "Academic prototype. Urgency uses weak labels; NER uses synthetic weak annotations. Scores are not calibrated confidence. Review every result.",
+      "client_round_trip_ms": 2792.6
+    }
+  },
+  "passed": true
+}

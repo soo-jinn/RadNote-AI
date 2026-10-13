@@ -1,0 +1,55 @@
+{
+  "measurement_host": "Windows-11-10.0.26200-SP0",
+  "client_machine": "AMD64",
+  "logical_cpus": 16,
+  "server_health": {
+    "status": "ok",
+    "classifier_ready": true,
+    "ocr_ready": true,
+    "ner_ready": true,
+    "ner_backend": "ONNX Runtime / synthetic-trained BIO tagger",
+    "precision": "int8",
+    "ocr_backend": "ONNX Runtime CPU / int8 Conv-MatMul",
+    "classifier_backend": "ONNX Runtime",
+    "providers": [
+      "CPUExecutionProvider"
+    ],
+    "validation_status": "provisional_weak_labels",
+    "ocr_error": null,
+    "version": "3.0.0"
+  },
+  "dataset": "60 original synthetic pages (12 templates, 5 visual variants each); no Open-I report text",
+  "sample_count": 60,
+  "successes": 60,
+  "failures": 0,
+  "ocr_normalization": "lowercase and whitespace collapse; punctuation retained",
+  "cer": 0.029492455418381344,
+  "wer": 0.13807106598984772,
+  "p50_round_trip_ms": 2827.33,
+  "p95_round_trip_ms": 2909.4154999999996,
+  "max_observed_server_rss_mb": 1235.266,
+  "synthetic_scenario_label_agreement": 0.5833333333333334,
+  "throughput": {
+    "text": {
+      "requests": 40,
+      "concurrency": 4,
+      "successes": 40,
+      "elapsed_seconds": 0.31519739999930607,
+      "successful_requests_per_minute": 7614.27600610057,
+      "p95_round_trip_ms": 44.73977499947068
+    },
+    "image": {
+      "requests": 8,
+      "concurrency": 2,
+      "successes": 8,
+      "elapsed_seconds": 22.94220249999853,
+      "successful_requests_per_minute": 20.922141193725004,
+      "p95_round_trip_ms": 5789.082600000802
+    }
+  },
+  "notes": [
+    "Record VM hardware and container stats separately. Client OS/CPU values describe the benchmark process, not independently measured server resources.",
+    "Synthetic scenario labels and repeated templates are engineering test cases, not clinical ground truth or independent classifier validation.",
+    "OCR requests are serialized per server process to bound CPU/memory use. Load results are specific to this host, sample mix, concurrency, and process count."
+  ]
+}

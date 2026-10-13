@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-13",
+  "measurement_environment": "Windows development host; CPUExecutionProvider; native Python services; NOT Ubuntu or Docker",
+  "checks": {
+    "15_regression_tests": true,
+    "8_onnx_graphs": true,
+    "13_live_integration_checks": true,
+    "60_page_uploads": true,
+    "matched_direct_http_inputs_models": true,
+    "matched_direct_http_outputs": true,
+    "sustained_load_no_failures": true,
+    "141_private_holdout_labels_match": true
+  },
+  "all_local_checks_passed": true,
+  "memory_sampling": "Final 60-page run samples the actual backend /metrics process RSS rather than a Windows launcher PID.",
+  "ubuntu_docker_verification": "pending actual VM run",
+  "limits": "Weak classifier labels; no Critical held-out support. Synthetic OCR/NER engineering evaluation is not clinical validation."
+}
