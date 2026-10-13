@@ -1,64 +1,88 @@
 # RadNote-AI
 
-This folder contains a reproducible TF-IDF + Logistic Regression baseline for assigning one of the proposal's urgency labels (`Routine`, `Urgent`, `Critical`) to the **text** in a chest-radiology report.
+CPE179P Group 4 final implementation for a professor-approved Ubuntu VM demonstration. The application processes report text and synthetic text-page images. Radiographs are outside scope. This is an academic system with explicit review flags and limited weak/synthetic model validation.
 
-The proposal's data source is the Indiana University Chest X-ray Collection (Open-I). The working corpus is not included here. Keep source-derived data in the group's restricted working directory and use only a course-approved sample in any public repository. This code expects CSV files prepared by the data/preprocessing owner; it does not infer or clinically validate urgency labels.
+## Runtime architecture
 
-## Expected CSV columns
+An Ubuntu browser contacts the portable client container at localhost:8765. That client sends HTTP requests over the Compose network to the FastAPI backend at backend:8000. OCR, synthetic BIO entity tagging and urgency inference use ONNX Runtime CPU. The default precision is static INT8 for supported layers, with float/native operations retained where required. Both containers run inside the Ubuntu VM; no Raspberry Pi is required.
 
-Training and optional test CSV files must each contain:
+## Start on Ubuntu
 
-| Column | Meaning |
-| --- | --- |
-| `findings` | Report Findings text; empty is allowed |
-| `impression` | Report Impression text; empty is allowed |
-| `urgency_label` | One of `Routine`, `Urgent`, `Critical` |
+Run from the repository root containing this README, Dockerfile and docker-compose.yml:
 
-The proposed rule draft and engineering gates are in the shared documentation folder. The script `scripts/label_openi_weak.py` creates provisional labels from explicit Impression language and uses MeSH only as a corroborating concept signal. MeSH descriptors alone do not encode acuity. Do not describe weak labels as clinically validated.
-
-The X-ray pixels are outside project scope. The classifier uses Findings/Impression report text only. OCR, if demonstrated, is limited to team-created synthetic report-page images in the shared sample folder.
-
-## Run the baseline
-
-From this directory, install the project in an isolated environment, then run:
-
-```powershell
-uv sync
-uv run python scripts/train_classifier.py --train-csv PATH\TO\train.csv --test-csv PATH\TO\test.csv --model-out artifacts\urgency_classifier.joblib --metrics-out artifacts\metrics.json
+```bash
+python3 scripts/preflight.py
+bash deploy/setup_docker_ubuntu.sh
+cp .env.example .env
+sudo docker compose build backend client
+sudo docker compose up -d --wait --wait-timeout 240 backend client
+sudo docker compose ps
+curl --fail http://127.0.0.1:8000/health
+curl --fail http://127.0.0.1:8765/ready
 ```
 
-Omit `--test-csv` to train without an evaluation report. The script writes macro and weighted precision/recall/F1, per-class metrics, and a confusion matrix when a test set is supplied. Use a held-out split prepared before fitting; do not use the test set to tune rules or thresholds.
+Open **http://127.0.0.1:8765** in the Ubuntu browser. The backend interface and API reference are available at **http://127.0.0.1:8000** and **/docs**. Engine installation/build needs internet access initially. Supplied ONNX artifacts allow runtime inference without downloading pretrained weights. `scripts/cache_ocr.py` is needed only when rebuilding OCR graphs from their original PyTorch networks.
 
-Before trying training, generate labels only in the private data directory:
+The package targets an amd64 CPU Ubuntu VM. Suggested rehearsal resources are 8 GB RAM, 4 vCPUs and 40 GB available disk, subject to the host's capacity. Record actual allocations and measurements rather than treating these suggestions as validated minimums.
 
-```powershell
-uv run python scripts/label_openi_weak.py --input ..\..\..\private-data\openi\openi_reports_unlabeled.csv --output ..\..\..\private-data\openi\openi_reports_weak_labeled.csv
+## Complete VM verification and benchmarking
+
+```bash
+mkdir -p results/vm
+bash deploy/verify_vm.sh 2>&1 | tee results/vm/verification_console.log
 ```
 
-The script is a provisional labeling proposal, not a substitute for the team's label audit. The current pass labels only 940 of 3,955 reports automatically (912 Routine, 27 Urgent, 1 Critical); the remaining 3,015 are `REVIEW`. This is too imbalanced to support a meaningful three-class evaluation. Do not train/report a three-class score until the group reviews the mapping and improves class coverage with audited labels.
+This checks hashes, builds images, records hardware/versions, measures FP32/INT8 and direct/HTTP execution, verifies API/client integration, uploads all 60 synthetic pages, runs sustained load and collects Docker CPU/memory. It saves actual evidence in `results/vm/`, including `verification_summary.json` and `VM_Benchmark_Summary.md`. Heavy local benchmarks run with this project's serving workload stopped. Results retain their measurement host/protocol.
 
-The first exploratory held-out run returned macro-F1 0.553 and accuracy 0.986 over 141 rows, including 137 Routine, 4 Urgent, and 0 Critical. Critical is not assessable; Urgent support is too small to treat its 0.50 recall as a stable estimate. The high accuracy is dominated by Routine. See the shared `Classifier_Baseline_Results.md` for the full confusion matrix and limitations; these are weak-label agreement metrics, not clinical performance.
+The full run is preparation work. For the live segment, restart the already-built service and demonstrate uploads, JSON and `sudo docker stats $(sudo docker compose ps -q backend client)`.
 
-## Export the fitted classifier to ONNX
+## API and CLI
 
-ONNX conversion is optional and must be checked in the target runtime. Install the export extra and run:
+- `GET /health`: model readiness, precision and CPU provider.
+- `GET /ready`: HTTP 200 when required components are ready; 503 otherwise.
+- `GET /metrics`: sampled process RSS, cumulative CPU time and thread count.
+- `POST /predict`: nonempty Findings/Impression JSON.
+- `POST /predict-image`: PNG/JPEG multipart synthetic report page, at most 8 MB and 16 megapixels.
 
-```powershell
-uv sync --extra onnx
-uv run python scripts/export_classifier_onnx.py --model artifacts\urgency_classifier.joblib --output artifacts\urgency_classifier.onnx
+```bash
+sudo docker compose exec -T client python client/report_client.py \
+  --server http://backend:8000 --image samples/ocr/images/case_001.png
 ```
 
-This exports the scikit-learn text pipeline only. It does not export OCR or spaCy. The selected accessible target is an Ubuntu CPU VM; after export, run the parity check there:
+Responses include urgency, critical_alert, probabilities, review_required/reasons, sections, entities, extracted text, model hash and server processing time. Scores are not calibrated confidence. Legacy `pi_client.py` / `pi_web.py` modules remain for existing imports; they are portable Python code and do not require Pi hardware.
 
-```powershell
-uv sync --extra onnx
-uv run --with onnxruntime python scripts/verify_onnx_cpu.py --model artifacts\urgency_classifier.joblib --onnx artifacts\urgency_classifier.onnx --csv PATH\TO\held_out.csv
+## Models, data and evaluation limits
+
+Eight ONNX files are supplied: FP32 and supported-layer INT8 versions of classifier, OCR detector, OCR recognizer and NER. `models/model_manifest.json` records sizes/hashes. The FP32 OCR detector is about 83 MB and is retained for reproducible comparisons.
+
+The classifier uses word unigram/bigram TF-IDF and balanced logistic regression trained on 658 weak-label Open-I rows. Test support is 137 Routine, 4 Urgent and 0 Critical. Existing weak-label accuracy is 0.98582 and three-label macro-F1 is 0.55314; Critical recall is unassessable. Entities are displayed separately from classifier features. NER learns synthetic BIO labels; unknown tokens are forced to O. The OCR corpus is 60 original synthetic pages, not radiographs or independent clinical cases. Every result remains flagged for review.
+
+`scripts/benchmark_precision.py` measures paired precision and synthetic NER behavior. An optional authorized private classifier CSV enables aggregate holdout metrics without exporting private text/row predictions. Public engineering benchmarks do not need private data.
+
+Older Windows results are in `results/reference_windows_oct06/`. Final-source Windows checks are in `results/verification_windows_oct13/` when provided. These are separate from `results/vm/` and cannot be described as VM/Docker/Pi results.
+
+## Container controls
+
+Docker uses dependency, backend runtime and lightweight client targets. Processes are non-root, root filesystems are read-only, temporary directories are writable, Linux UTF-8 locale is generated for ONNX string normalization, and Compose configures CPU/memory/pid caps, health dependencies, dropped capabilities and loopback publication. Configured caps differ from measured usage. Institutional authentication, TLS, high availability and clinical validation are outside the proven scope.
+
+## Source layout and documentation
+
+Use root paths: `api/`, `client/`, `deploy/`, `models/`, `radnote/`, `results/`, `samples/`, `scripts/`, `tests/`, `web/` and root configuration. Merge assigned paths into the existing repository and preserve unrelated Sprint 1 files pending reviewed retirement.
+
+Reports, architecture diagrams, schedules, signed forms, peer evaluations and recordings go to the separate documentation repository/course folders. Document-building code is outside this system repository. The full handoff includes the detailed Ubuntu walkthrough and a tool that refreshes the report from actual VM results.
+
+## Development without Docker
+
+```bash
+uv sync --frozen --extra ocr --extra dev --extra training
+uv run --no-sync uvicorn api.main:app --host 127.0.0.1 --port 8000
+uv run --no-sync pytest -q
 ```
 
-The parity script requires exact label agreement and the ONNX Runtime CPU provider. Conversion and 141/141 held-out CPU parity succeeded locally on Windows after removing the unsupported `strip_accents="unicode"` option from the vectorizer. Repeat this check on the Ubuntu VM before claiming target deployment verification. Ascend/Atlas is not currently an accessible deployment target, so confirm whether the course rubric requires it.
+ONNX inference needs runtime/OCR dependencies but no raw private reports or original PyTorch checkpoint cache. Re-export uses authorized data, training dependencies and reproduction controls. Linux string normalization requires en_US.UTF-8; Docker generates it.
 
-## Sprint status
+## AI use and provenance
 
-- Implemented: configurable baseline training/evaluation, provisional weak-label/split script, ONNX export, and CPU parity checker.
-- Pending: group review of weak-label policy and class support; improve audited labels before treating metrics as an acceptance result; rerun ONNX/API verification on the Ubuntu VM.
-- No real dataset, credentials, model binaries, or patient information belongs in this repository.
+OpenAI Codex assisted source, synthetic data, documentation and authorized local checks. Pretrained OCR comes from EasyOCR; NER uses synthetic annotations and classification uses Open-I weak labels. Members document their real review/execution/changes and supply genuine contribution evidence. Model limits and measurement origins remain visible.
+
+References: [EasyOCR](https://github.com/JaidedAI/EasyOCR), [ONNX Runtime quantization](https://onnxruntime.ai/docs/performance/model-optimizations/quantization.html), [Docker multistage builds](https://docs.docker.com/build/building/multi-stage/), [Docker Ubuntu installation](https://docs.docker.com/engine/install/ubuntu/).
