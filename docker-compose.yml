@@ -1,0 +1,74 @@
+name: radnote-ai-final
+services:
+  backend:
+    image: radnote-ai-backend:3.0
+    build:
+      context: .
+      target: runtime
+    environment:
+      RADNOTE_CPU_THREADS: ${RADNOTE_CPU_THREADS:-2}
+      RADNOTE_MODEL_PRECISION: ${RADNOTE_MODEL_PRECISION:-int8}
+      RADNOTE_ENABLE_OCR: "1"
+      RADNOTE_REVIEW_THRESHOLD: ${RADNOTE_REVIEW_THRESHOLD:-0.70}
+    ports:
+      - "127.0.0.1:${RADNOTE_API_PORT:-8000}:8000"
+    cpus: ${RADNOTE_SERVER_CPUS:-2.0}
+    mem_limit: ${RADNOTE_SERVER_MEMORY:-4g}
+    pids_limit: 256
+    read_only: true
+    tmpfs:
+      - /tmp:size=512m,mode=1777
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    init: true
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+  client:
+    image: radnote-ai-client:3.0
+    build:
+      context: .
+      target: client
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:${RADNOTE_CLIENT_PORT:-8765}:8765"
+    cpus: 0.5
+    mem_limit: 256m
+    pids_limit: 64
+    read_only: true
+    tmpfs:
+      - /tmp:size=32m,mode=1777
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    init: true
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+  benchmark:
+    image: radnote-ai-backend:3.0
+    build:
+      context: .
+      target: runtime
+    profiles: [tools]
+    user: "${RADNOTE_UID:-1000}:${RADNOTE_GID:-1000}"
+    environment:
+      RADNOTE_CPU_THREADS: ${RADNOTE_CPU_THREADS:-2}
+    volumes:
+      - ./results:/app/results
+    cpus: ${RADNOTE_SERVER_CPUS:-2.0}
+    mem_limit: ${RADNOTE_SERVER_MEMORY:-4g}
+    read_only: true
+    tmpfs:
+      - /tmp:size=512m,mode=1777
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    init: true
+    command: ["python", "scripts/benchmark_precision.py", "--output", "results/vm/precision_comparison.json"]
